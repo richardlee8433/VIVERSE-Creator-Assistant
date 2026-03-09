@@ -1,0 +1,10 @@
+{
+  "questions": [
+    {"id": "goal", "label": "What do you want to build first?", "options": ["3d_world", "interactive_experience", "publish_existing_app", "exploring"]},
+    {"id": "experience", "label": "What's your current creation experience?", "options": ["none", "3d_tools", "playcanvas", "web_development", "unity_unreal"]},
+    {"id": "workflow", "label": "How do you prefer to work?", "options": ["no_code_tools", "visual_editor", "writing_code"]},
+    {"id": "assets", "label": "What assets do you already have?", "options": ["none", "3d_models", "full_project"]},
+    {"id": "first_project_goal", "label": "What should your first project outcome be?", "options": ["shareable_demo", "interactive_world", "viverse_app"]},
+    {"id": "biggest_concern", "label": "What's your biggest concern?", "options": ["complexity", "performance", "publishing", "tools_setup"]}
+  ]
+}
