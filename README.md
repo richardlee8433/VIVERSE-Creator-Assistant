@@ -31,8 +31,14 @@ Backend MVP for classifying creators from onboarding answers, routing them to a 
 
 - `OPENAI_API_KEY` (required for live LLM generation; fallback works without it)
 - `OPENAI_MODEL` (optional, default: `gpt-4o-mini`)
-- `SESSION_STORE_PATH` (optional, default: `./data/sessions.json`)
+- `SESSION_STORE_PATH` (optional, default: `./data/sessions.json` in development, `/tmp/viverse-sessions.json` in production)
 - `ANALYTICS_STORE_PATH` (optional, default: `./data/analytics.log`)
+
+
+## Deployment note
+
+- The default file-backed session store is intended for MVP/local use. In production, configure a persistent external store (database/KV) to avoid data loss across serverless instances.
+- If no `SESSION_STORE_PATH` is provided in production, sessions are written under `/tmp` to avoid read-only filesystem errors.
 
 ## Run locally
 
