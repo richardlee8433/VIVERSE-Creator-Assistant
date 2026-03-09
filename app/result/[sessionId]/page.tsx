@@ -6,6 +6,7 @@ import { StepCard } from "@/components/step-card";
 import { GuideCard } from "@/components/guide-card";
 import { PitfallCard } from "@/components/pitfall-card";
 import { FollowupInput } from "@/components/followup-input";
+import { getRecommendation } from "@/lib/api";
 import {
   ArrowLeft,
   ArrowRight,
@@ -50,16 +51,14 @@ type RecommendationResponse = {
 };
 
 async function fetchRecommendation(sessionId: string): Promise<RecommendationResponse> {
-  const response = await fetch(`/api/recommendation/${sessionId}`, {
-    cache: "no-store",
-  });
+  const result = await getRecommendation(sessionId);
 
-  if (!response.ok) {
-    const data = await response.json().catch(() => null);
-    throw new Error(data?.error ?? "Failed to load recommendation");
+  if (result.status !== 200) {
+    const body = result.body as { error?: string };
+    throw new Error(body?.error ?? "Failed to load recommendation");
   }
 
-  return response.json();
+  return result.body as RecommendationResponse;
 }
 
 export default async function ResultPage({ params }: ResultPageProps) {
