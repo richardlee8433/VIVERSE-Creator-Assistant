@@ -1,0 +1,20 @@
+{
+  "profiles": [
+    {"id": "beginner_creator", "label": "Beginner Creator"},
+    {"id": "three_d_creator", "label": "3D Creator"},
+    {"id": "interactive_builder", "label": "Interactive Builder"},
+    {"id": "web_engine_developer", "label": "Web/Engine Developer"}
+  ],
+  "paths": [
+    {"id": "no_code_path", "label": "No-Code Path"},
+    {"id": "playcanvas_toolkit_path", "label": "PlayCanvas Toolkit Path"},
+    {"id": "interactive_build_path", "label": "Interactive Build Path"},
+    {"id": "standalone_publish_path", "label": "Standalone Publish Path"}
+  ],
+  "profileToPath": {
+    "beginner_creator": "no_code_path",
+    "three_d_creator": "playcanvas_toolkit_path",
+    "interactive_builder": "interactive_build_path",
+    "web_engine_developer": "standalone_publish_path"
+  }
+}

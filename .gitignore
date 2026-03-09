@@ -1,0 +1,6 @@
+node_modules
+coverage
+*.log
+/data/sessions.json
+/data/test-sessions.json
+/data/analytics.log
