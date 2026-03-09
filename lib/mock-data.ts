@@ -122,8 +122,9 @@ export const mockRecommendation = {
       id: "prepare-3d-experience",
       title: "Prepare Your 3D Experience",
       reason: "Essential first step for your chosen path",
-      url: "/guides/intro_toolkit",
-      sourceUrl: "https://docs.viverse.com/how-to-publish",
+      url: "/guides/setup_toolkit",
+      sourceUrl: "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
+
     },
     {
       id: "upload-viverse-studio",
@@ -136,15 +137,17 @@ export const mockRecommendation = {
       id: "configure-world-settings",
       title: "Configure World Settings",
       reason: "Get your work live quickly",
-      url: "/guides/build_toolkit",
-      sourceUrl: "https://docs.viverse.com/how-to-publish",
+      url: "/guides/publish_toolkit",
+      sourceUrl: "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
+
     },
     {
       id: "publish-experience",
       title: "Publish Your Experience",
       reason: "Ensure smooth performance from the start",
-      url: "/guides/publish_toolkit",
-      sourceUrl: "https://docs.viverse.com/how-to-publish",
+      url: "/guides/intro_toolkit",
+      sourceUrl: "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
+
     },
   ],
   pitfalls: [
