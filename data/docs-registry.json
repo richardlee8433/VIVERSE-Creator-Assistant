@@ -1,23 +1,280 @@
 {
   "docs": [
-    {"id":"intro_no_code","title":"Start with No-Code Scenes","url":"https://docs.viverse.com/create/no-code/get-started","pathTags":["no_code_path"],"audienceLevels":["beginner"],"taskStages":["intro"],"contentType":"guide","summary":"Overview of creating your first scene without coding.","priority":10},
-    {"id":"setup_no_code","title":"Workspace Setup for New Creators","url":"https://docs.viverse.com/create/no-code/workspace-setup","pathTags":["no_code_path"],"audienceLevels":["beginner"],"taskStages":["setup"],"contentType":"tutorial","summary":"How to configure your workspace and project settings.","priority":9},
-    {"id":"build_no_code","title":"Build an Interactive World with Blocks","url":"https://docs.viverse.com/create/no-code/first-world","pathTags":["no_code_path"],"audienceLevels":["beginner"],"taskStages":["first_build"],"contentType":"tutorial","summary":"Step-by-step first build using no-code blocks.","priority":9},
-    {"id":"publish_no_code","title":"Publish Your First No-Code Experience","url":"https://docs.viverse.com/create/no-code/publish","pathTags":["no_code_path"],"audienceLevels":["beginner"],"taskStages":["publish"],"contentType":"guide","summary":"How to publish and share your no-code experience.","priority":8},
-
-    {"id":"intro_toolkit","title":"PlayCanvas Toolkit Overview","url":"https://docs.viverse.com/create/playcanvas/overview","pathTags":["playcanvas_toolkit_path"],"audienceLevels":["intermediate"],"taskStages":["intro"],"contentType":"guide","summary":"Concepts and capabilities of the PlayCanvas toolkit integration.","priority":10},
-    {"id":"setup_toolkit","title":"Toolkit Setup","url":"https://docs.viverse.com/create/playcanvas/setup","pathTags":["playcanvas_toolkit_path"],"audienceLevels":["intermediate"],"taskStages":["setup"],"contentType":"tutorial","summary":"Set up the toolkit and connect your project.","priority":9},
-    {"id":"build_toolkit","title":"Build Your First Toolkit Scene","url":"https://docs.viverse.com/create/playcanvas/first-scene","pathTags":["playcanvas_toolkit_path"],"audienceLevels":["intermediate"],"taskStages":["first_build"],"contentType":"tutorial","summary":"Create and test your first interactive scene.","priority":9},
-    {"id":"publish_toolkit","title":"Publish Toolkit Projects","url":"https://docs.viverse.com/create/playcanvas/publish","pathTags":["playcanvas_toolkit_path"],"audienceLevels":["intermediate"],"taskStages":["publish"],"contentType":"guide","summary":"Publish and optimize toolkit projects.","priority":8},
-
-    {"id":"intro_interactive","title":"Interactive Build Foundations","url":"https://docs.viverse.com/create/interactive/foundations","pathTags":["interactive_build_path"],"audienceLevels":["intermediate","advanced"],"taskStages":["intro"],"contentType":"guide","summary":"Core patterns for interactive builds in VIVERSE.","priority":10},
-    {"id":"setup_interactive","title":"Dev Environment Setup","url":"https://docs.viverse.com/create/interactive/setup","pathTags":["interactive_build_path"],"audienceLevels":["intermediate","advanced"],"taskStages":["setup"],"contentType":"guide","summary":"Set up your local environment for interactive development.","priority":9},
-    {"id":"build_interactive","title":"First Interaction Loop","url":"https://docs.viverse.com/create/interactive/interaction-loop","pathTags":["interactive_build_path"],"audienceLevels":["intermediate","advanced"],"taskStages":["first_build"],"contentType":"tutorial","summary":"Implement your first interaction loop.","priority":9},
-    {"id":"publish_interactive","title":"Release Interactive Experiences","url":"https://docs.viverse.com/create/interactive/release","pathTags":["interactive_build_path"],"audienceLevels":["intermediate","advanced"],"taskStages":["publish"],"contentType":"guide","summary":"Checklist for shipping interactive experiences.","priority":8},
-
-    {"id":"intro_standalone","title":"Standalone Publish Overview","url":"https://docs.viverse.com/create/standalone/overview","pathTags":["standalone_publish_path"],"audienceLevels":["advanced"],"taskStages":["intro"],"contentType":"guide","summary":"How to bring existing web or engine apps into VIVERSE.","priority":10},
-    {"id":"setup_standalone","title":"Import Existing Project","url":"https://docs.viverse.com/create/standalone/import","pathTags":["standalone_publish_path"],"audienceLevels":["advanced"],"taskStages":["setup"],"contentType":"guide","summary":"Prepare and import your existing build.","priority":9},
-    {"id":"build_standalone","title":"Adapt Runtime Integrations","url":"https://docs.viverse.com/create/standalone/runtime-adapt","pathTags":["standalone_publish_path"],"audienceLevels":["advanced"],"taskStages":["first_build"],"contentType":"tutorial","summary":"Adapt runtime integrations for compatibility.","priority":9},
-    {"id":"publish_standalone","title":"Publish Existing App to VIVERSE","url":"https://docs.viverse.com/create/standalone/publish","pathTags":["standalone_publish_path"],"audienceLevels":["advanced"],"taskStages":["publish"],"contentType":"guide","summary":"Deploy and validate your migrated app.","priority":8}
+    {
+      "id": "intro_no_code",
+      "title": "Start with No-Code Scenes",
+      "url": "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
+      "pathTags": [
+        "no_code_path"
+      ],
+      "audienceLevels": [
+        "beginner"
+      ],
+      "taskStages": [
+        "intro"
+      ],
+      "contentType": "guide",
+      "summary": "Overview of creating your first scene without coding.",
+      "priority": 10
+    },
+    {
+      "id": "setup_no_code",
+      "title": "Workspace Setup for New Creators",
+      "url": "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
+      "pathTags": [
+        "no_code_path"
+      ],
+      "audienceLevels": [
+        "beginner"
+      ],
+      "taskStages": [
+        "setup"
+      ],
+      "contentType": "tutorial",
+      "summary": "How to configure your workspace and project settings.",
+      "priority": 9
+    },
+    {
+      "id": "build_no_code",
+      "title": "Build an Interactive World with Blocks",
+      "url": "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
+      "pathTags": [
+        "no_code_path"
+      ],
+      "audienceLevels": [
+        "beginner"
+      ],
+      "taskStages": [
+        "first_build"
+      ],
+      "contentType": "tutorial",
+      "summary": "Step-by-step first build using no-code blocks.",
+      "priority": 9
+    },
+    {
+      "id": "publish_no_code",
+      "title": "Publish Your First No-Code Experience",
+      "url": "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
+      "pathTags": [
+        "no_code_path"
+      ],
+      "audienceLevels": [
+        "beginner"
+      ],
+      "taskStages": [
+        "publish"
+      ],
+      "contentType": "guide",
+      "summary": "How to publish and share your no-code experience.",
+      "priority": 8
+    },
+    {
+      "id": "intro_toolkit",
+      "title": "PlayCanvas Toolkit Overview",
+      "url": "https://docs.viverse.com/how-to-publish",
+      "pathTags": [
+        "playcanvas_toolkit_path"
+      ],
+      "audienceLevels": [
+        "intermediate"
+      ],
+      "taskStages": [
+        "intro"
+      ],
+      "contentType": "guide",
+      "summary": "Concepts and capabilities of the PlayCanvas toolkit integration.",
+      "priority": 10
+    },
+    {
+      "id": "setup_toolkit",
+      "title": "Toolkit Setup",
+      "url": "https://docs.viverse.com/how-to-publish",
+      "pathTags": [
+        "playcanvas_toolkit_path"
+      ],
+      "audienceLevels": [
+        "intermediate"
+      ],
+      "taskStages": [
+        "setup"
+      ],
+      "contentType": "tutorial",
+      "summary": "Set up the toolkit and connect your project.",
+      "priority": 9
+    },
+    {
+      "id": "build_toolkit",
+      "title": "Build Your First Toolkit Scene",
+      "url": "https://docs.viverse.com/how-to-publish",
+      "pathTags": [
+        "playcanvas_toolkit_path"
+      ],
+      "audienceLevels": [
+        "intermediate"
+      ],
+      "taskStages": [
+        "first_build"
+      ],
+      "contentType": "tutorial",
+      "summary": "Create and test your first interactive scene.",
+      "priority": 9
+    },
+    {
+      "id": "publish_toolkit",
+      "title": "Publish Toolkit Projects",
+      "url": "https://docs.viverse.com/how-to-publish",
+      "pathTags": [
+        "playcanvas_toolkit_path"
+      ],
+      "audienceLevels": [
+        "intermediate"
+      ],
+      "taskStages": [
+        "publish"
+      ],
+      "contentType": "guide",
+      "summary": "Publish and optimize toolkit projects.",
+      "priority": 8
+    },
+    {
+      "id": "intro_interactive",
+      "title": "Interactive Build Foundations",
+      "url": "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
+      "pathTags": [
+        "interactive_build_path"
+      ],
+      "audienceLevels": [
+        "intermediate",
+        "advanced"
+      ],
+      "taskStages": [
+        "intro"
+      ],
+      "contentType": "guide",
+      "summary": "Core patterns for interactive builds in VIVERSE.",
+      "priority": 10
+    },
+    {
+      "id": "setup_interactive",
+      "title": "Dev Environment Setup",
+      "url": "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
+      "pathTags": [
+        "interactive_build_path"
+      ],
+      "audienceLevels": [
+        "intermediate",
+        "advanced"
+      ],
+      "taskStages": [
+        "setup"
+      ],
+      "contentType": "guide",
+      "summary": "Set up your local environment for interactive development.",
+      "priority": 9
+    },
+    {
+      "id": "build_interactive",
+      "title": "First Interaction Loop",
+      "url": "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
+      "pathTags": [
+        "interactive_build_path"
+      ],
+      "audienceLevels": [
+        "intermediate",
+        "advanced"
+      ],
+      "taskStages": [
+        "first_build"
+      ],
+      "contentType": "tutorial",
+      "summary": "Implement your first interaction loop.",
+      "priority": 9
+    },
+    {
+      "id": "publish_interactive",
+      "title": "Release Interactive Experiences",
+      "url": "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
+      "pathTags": [
+        "interactive_build_path"
+      ],
+      "audienceLevels": [
+        "intermediate",
+        "advanced"
+      ],
+      "taskStages": [
+        "publish"
+      ],
+      "contentType": "guide",
+      "summary": "Checklist for shipping interactive experiences.",
+      "priority": 8
+    },
+    {
+      "id": "intro_standalone",
+      "title": "Standalone Publish Overview",
+      "url": "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
+      "pathTags": [
+        "standalone_publish_path"
+      ],
+      "audienceLevels": [
+        "advanced"
+      ],
+      "taskStages": [
+        "intro"
+      ],
+      "contentType": "guide",
+      "summary": "How to bring existing web or engine apps into VIVERSE.",
+      "priority": 10
+    },
+    {
+      "id": "setup_standalone",
+      "title": "Import Existing Project",
+      "url": "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
+      "pathTags": [
+        "standalone_publish_path"
+      ],
+      "audienceLevels": [
+        "advanced"
+      ],
+      "taskStages": [
+        "setup"
+      ],
+      "contentType": "guide",
+      "summary": "Prepare and import your existing build.",
+      "priority": 9
+    },
+    {
+      "id": "build_standalone",
+      "title": "Adapt Runtime Integrations",
+      "url": "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
+      "pathTags": [
+        "standalone_publish_path"
+      ],
+      "audienceLevels": [
+        "advanced"
+      ],
+      "taskStages": [
+        "first_build"
+      ],
+      "contentType": "tutorial",
+      "summary": "Adapt runtime integrations for compatibility.",
+      "priority": 9
+    },
+    {
+      "id": "publish_standalone",
+      "title": "Publish Existing App to VIVERSE",
+      "url": "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
+      "pathTags": [
+        "standalone_publish_path"
+      ],
+      "audienceLevels": [
+        "advanced"
+      ],
+      "taskStages": [
+        "publish"
+      ],
+      "contentType": "guide",
+      "summary": "Deploy and validate your migrated app.",
+      "priority": 8
+    }
   ]
 }
