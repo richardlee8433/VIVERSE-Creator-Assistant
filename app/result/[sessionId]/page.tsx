@@ -94,9 +94,11 @@ export default async function ResultPage({ params }: ResultPageProps) {
                   </div>
                 </div>
 
-                <Button size="lg" className="mt-4">
-                  View recommended guides
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Button size="lg" className="mt-4" asChild>
+                  <a href="#recommended-guides">
+                    View recommended guides
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -149,7 +151,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
           </section>
 
           {/* Recommended guides */}
-          <section className="space-y-6">
+          <section id="recommended-guides" className="space-y-6 scroll-mt-24">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-primary" />
