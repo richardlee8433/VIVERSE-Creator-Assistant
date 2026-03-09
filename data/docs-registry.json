@@ -2,7 +2,7 @@
   "docs": [
     {
       "id": "intro_no_code",
-      "title": "Start with No-Code Scenes",
+      "title": "Create Your First World From Templates",
       "url": "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
       "pathTags": [
         "no_code_path"
@@ -19,7 +19,7 @@
     },
     {
       "id": "setup_no_code",
-      "title": "Workspace Setup for New Creators",
+      "title": "Customize a Template World",
       "url": "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
       "pathTags": [
         "no_code_path"
@@ -35,25 +35,8 @@
       "priority": 9
     },
     {
-      "id": "build_no_code",
-      "title": "Build an Interactive World with Blocks",
-      "url": "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
-      "pathTags": [
-        "no_code_path"
-      ],
-      "audienceLevels": [
-        "beginner"
-      ],
-      "taskStages": [
-        "first_build"
-      ],
-      "contentType": "tutorial",
-      "summary": "Step-by-step first build using no-code blocks.",
-      "priority": 9
-    },
-    {
       "id": "publish_no_code",
-      "title": "Publish Your First No-Code Experience",
+      "title": "Publish Your Template World",
       "url": "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
       "pathTags": [
         "no_code_path"
@@ -70,7 +53,7 @@
     },
     {
       "id": "intro_toolkit",
-      "title": "PlayCanvas Toolkit Overview",
+      "title": "Prepare Your 3D Experience",
       "url": "https://docs.viverse.com/how-to-publish",
       "pathTags": [
         "playcanvas_toolkit_path"
@@ -87,7 +70,7 @@
     },
     {
       "id": "setup_toolkit",
-      "title": "Toolkit Setup",
+      "title": "Upload Using VIVERSE Studio",
       "url": "https://docs.viverse.com/how-to-publish",
       "pathTags": [
         "playcanvas_toolkit_path"
@@ -104,7 +87,7 @@
     },
     {
       "id": "build_toolkit",
-      "title": "Build Your First Toolkit Scene",
+      "title": "Configure World Settings",
       "url": "https://docs.viverse.com/how-to-publish",
       "pathTags": [
         "playcanvas_toolkit_path"
@@ -121,7 +104,7 @@
     },
     {
       "id": "publish_toolkit",
-      "title": "Publish Toolkit Projects",
+      "title": "Publish Your Experience",
       "url": "https://docs.viverse.com/how-to-publish",
       "pathTags": [
         "playcanvas_toolkit_path"
@@ -138,7 +121,7 @@
     },
     {
       "id": "intro_interactive",
-      "title": "Interactive Build Foundations",
+      "title": "Toolkit Setup Guide",
       "url": "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
       "pathTags": [
         "interactive_build_path"
@@ -156,7 +139,7 @@
     },
     {
       "id": "setup_interactive",
-      "title": "Dev Environment Setup",
+      "title": "Your First Scene",
       "url": "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
       "pathTags": [
         "interactive_build_path"
@@ -174,7 +157,7 @@
     },
     {
       "id": "build_interactive",
-      "title": "First Interaction Loop",
+      "title": "Publishing to VIVERSE",
       "url": "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
       "pathTags": [
         "interactive_build_path"
@@ -192,7 +175,7 @@
     },
     {
       "id": "publish_interactive",
-      "title": "Release Interactive Experiences",
+      "title": "Optimization Basics",
       "url": "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
       "pathTags": [
         "interactive_build_path"
@@ -210,7 +193,7 @@
     },
     {
       "id": "intro_standalone",
-      "title": "Standalone Publish Overview",
+      "title": "Prepare Your Web App",
       "url": "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
       "pathTags": [
         "standalone_publish_path"
@@ -227,7 +210,7 @@
     },
     {
       "id": "setup_standalone",
-      "title": "Import Existing Project",
+      "title": "Configure Standalone App",
       "url": "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
       "pathTags": [
         "standalone_publish_path"
@@ -244,7 +227,7 @@
     },
     {
       "id": "build_standalone",
-      "title": "Adapt Runtime Integrations",
+      "title": "Upload Build Files",
       "url": "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
       "pathTags": [
         "standalone_publish_path"
@@ -261,7 +244,7 @@
     },
     {
       "id": "publish_standalone",
-      "title": "Publish Existing App to VIVERSE",
+      "title": "Publish Standalone Experience",
       "url": "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
       "pathTags": [
         "standalone_publish_path"

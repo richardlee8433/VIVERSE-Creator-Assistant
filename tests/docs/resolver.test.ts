@@ -31,6 +31,36 @@ describe('resolveRecommendedDocs', () => {
     });
   });
 
+
+  it('uses the finalized guide title mapping for each path taxonomy label', () => {
+    expect(resolveRecommendedDocs('no_code_path').map((g) => g.title)).toEqual([
+      'Create Your First World From Templates',
+      'Customize a Template World',
+      'Publish Your Template World',
+    ]);
+
+    expect(resolveRecommendedDocs('playcanvas_toolkit_path').map((g) => g.title)).toEqual([
+      'Prepare Your 3D Experience',
+      'Upload Using VIVERSE Studio',
+      'Configure World Settings',
+      'Publish Your Experience',
+    ]);
+
+    expect(resolveRecommendedDocs('interactive_build_path').map((g) => g.title)).toEqual([
+      'Toolkit Setup Guide',
+      'Your First Scene',
+      'Publishing to VIVERSE',
+      'Optimization Basics',
+    ]);
+
+    expect(resolveRecommendedDocs('standalone_publish_path').map((g) => g.title)).toEqual([
+      'Prepare Your Web App',
+      'Configure Standalone App',
+      'Upload Build Files',
+      'Publish Standalone Experience',
+    ]);
+  });
+
   it('respects stage + priority order', () => {
     const guides = resolveRecommendedDocs('standalone_publish_path');
     expect(guides.map((g) => g.taskStage)).toEqual(['intro', 'setup', 'first_build', 'publish']);
