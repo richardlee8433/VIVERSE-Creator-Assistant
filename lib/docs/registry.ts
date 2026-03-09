@@ -5,6 +5,7 @@ export type DocEntry = {
   id: string;
   title: string;
   url: string;
+  sourceUrl?: string;
   pathTags: PathId[];
   audienceLevels: string[];
   taskStages: string[];

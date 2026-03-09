@@ -22,7 +22,8 @@ export function resolveRecommendedDocs(path: PathId): RecommendedGuide[] {
   return docs.map((doc) => ({
     id: doc.id,
     title: doc.title,
-    url: doc.url,
+    url: `/guides/${doc.id}`,
+    sourceUrl: doc.sourceUrl ?? doc.url,
     reason: reasonForStage(doc.taskStages[0] ?? ''),
     taskStage: doc.taskStages[0] ?? 'misc',
     summary: doc.summary,

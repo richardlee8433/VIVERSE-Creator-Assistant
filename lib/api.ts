@@ -62,6 +62,7 @@ export async function getRecommendation(sessionId: string) {
         title: g.title,
         url: g.url,
         reason: g.reason,
+        sourceUrl: g.sourceUrl,
       })),
     },
   };
@@ -84,7 +85,7 @@ export async function askOnboardingQuestion(payload: unknown) {
       body: {
         answer:
           'This MVP only supports onboarding and getting-started guidance. Please continue with your recommended path and official docs first.',
-        recommendedGuides: session.recommendedGuides.slice(0, 2).map((g) => ({ id: g.id, title: g.title, url: g.url })),
+        recommendedGuides: session.recommendedGuides.slice(0, 2).map((g) => ({ id: g.id, title: g.title, url: g.url, sourceUrl: g.sourceUrl })),
       },
     };
   }
@@ -93,7 +94,7 @@ export async function askOnboardingQuestion(payload: unknown) {
     status: 200,
     body: {
       answer: `Given your ${session.creatorProfile} profile, stay on ${session.recommendedPath} and complete setup before deciding on alternative tooling.`,
-      recommendedGuides: session.recommendedGuides.slice(0, 3).map((g) => ({ id: g.id, title: g.title, url: g.url })),
+      recommendedGuides: session.recommendedGuides.slice(0, 3).map((g) => ({ id: g.id, title: g.title, url: g.url, sourceUrl: g.sourceUrl })),
     },
   };
 }

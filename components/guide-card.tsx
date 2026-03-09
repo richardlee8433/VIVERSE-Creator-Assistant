@@ -7,10 +7,11 @@ interface GuideCardProps {
   title: string;
   reason: string;
   url: string;
+  sourceUrl?: string;
   className?: string;
 }
 
-export function GuideCard({ title, reason, url, className }: GuideCardProps) {
+export function GuideCard({ title, reason, url, sourceUrl, className }: GuideCardProps) {
   return (
     <Card
       className={cn(
@@ -26,17 +27,29 @@ export function GuideCard({ title, reason, url, className }: GuideCardProps) {
           <p className="text-sm text-muted-foreground leading-relaxed">
             {reason}
           </p>
-          <Button
-            variant="outline"
-            size="sm"
-            className="w-full mt-2 group-hover:border-primary/50"
-            asChild
-          >
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              View Guide
-              <ExternalLink className="ml-2 h-3.5 w-3.5" />
-            </a>
-          </Button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <Button
+              variant="default"
+              size="sm"
+              className="w-full"
+              asChild
+            >
+              <a href={url}>
+                View Quick Guide
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full group-hover:border-primary/50"
+              asChild
+            >
+              <a href={sourceUrl ?? url} target="_blank" rel="noopener noreferrer">
+                Official Docs
+                <ExternalLink className="ml-2 h-3.5 w-3.5" />
+              </a>
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>

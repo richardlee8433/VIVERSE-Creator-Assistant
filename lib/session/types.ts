@@ -61,6 +61,7 @@ export type RecommendedGuide = {
   id: string;
   title: string;
   url: string;
+  sourceUrl: string;
   reason: string;
   taskStage: string;
   summary: string;
