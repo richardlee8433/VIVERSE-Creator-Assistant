@@ -53,7 +53,7 @@
     },
     {
       "id": "intro_toolkit",
-      "title": "Prepare Your 3D Experience",
+      "title": "No-code world creation",
       "url": "https://docs.viverse.com/how-to-publish",
       "pathTags": [
         "playcanvas_toolkit_path"
@@ -70,7 +70,7 @@
     },
     {
       "id": "setup_toolkit",
-      "title": "Upload Using VIVERSE Studio",
+      "title": "3D creator pipeline",
       "url": "https://docs.viverse.com/how-to-publish",
       "pathTags": [
         "playcanvas_toolkit_path"
@@ -87,7 +87,7 @@
     },
     {
       "id": "build_toolkit",
-      "title": "Configure World Settings",
+      "title": "Interactive builder",
       "url": "https://docs.viverse.com/how-to-publish",
       "pathTags": [
         "playcanvas_toolkit_path"
@@ -104,7 +104,7 @@
     },
     {
       "id": "publish_toolkit",
-      "title": "Publish Your Experience",
+      "title": "Standalone publishing",
       "url": "https://docs.viverse.com/how-to-publish",
       "pathTags": [
         "playcanvas_toolkit_path"
