@@ -169,6 +169,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
                   title={guide.title}
                   reason={guide.reason}
                   url={guide.url}
+                  sourceUrl={guide.sourceUrl}
                 />
               ))}
             </div>

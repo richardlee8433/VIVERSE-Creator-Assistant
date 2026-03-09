@@ -8,6 +8,13 @@ describe('resolveRecommendedDocs', () => {
     expect(guides[0].taskStage).toBe('intro');
   });
 
+
+  it('returns local quick guide urls with source docs links', () => {
+    const [guide] = resolveRecommendedDocs('playcanvas_toolkit_path');
+    expect(guide.url.startsWith('/guides/')).toBe(true);
+    expect(guide.sourceUrl.startsWith('https://')).toBe(true);
+  });
+
   it('respects stage + priority order', () => {
     const guides = resolveRecommendedDocs('standalone_publish_path');
     expect(guides.map((g) => g.taskStage)).toEqual(['intro', 'setup', 'first_build', 'publish']);
