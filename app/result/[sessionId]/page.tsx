@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -52,6 +53,21 @@ type RecommendationResponse = {
 
 async function fetchRecommendation(sessionId: string): Promise<RecommendationResponse> {
   const result = await getRecommendation(sessionId);
+
+  if (result.status === 404) {
+    const cached = (await cookies()).get("vca_recommendation_cache")?.value;
+
+    if (cached) {
+      try {
+        const parsed = JSON.parse(decodeURIComponent(cached)) as RecommendationResponse;
+        if (parsed.sessionId === sessionId) {
+          return parsed;
+        }
+      } catch {
+        // Ignore malformed cache and continue with the original error.
+      }
+    }
+  }
 
   if (result.status !== 200) {
     const body = result.body as { error?: string };

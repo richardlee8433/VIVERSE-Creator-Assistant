@@ -42,6 +42,19 @@ export async function submitOnboarding(payload: unknown) {
       recommendedPath: session.recommendedPath,
       confidence: session.confidence,
       resultUrl: `/result/${session.sessionId}`,
+      recommendationSnapshot: {
+        sessionId: session.sessionId,
+        creatorProfile: { id: session.creatorProfile, label: profileLabels[session.creatorProfile] },
+        recommendedPath: { id: session.recommendedPath, label: pathLabels[session.recommendedPath] },
+        guide: session.generatedGuide,
+        recommendedGuides: session.recommendedGuides.map((g) => ({
+          id: g.id,
+          title: g.title,
+          url: g.url,
+          reason: g.reason,
+          sourceUrl: g.sourceUrl,
+        })),
+      },
     },
   };
 }

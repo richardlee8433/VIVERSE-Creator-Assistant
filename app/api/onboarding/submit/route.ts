@@ -8,7 +8,16 @@ export async function POST(request: Request): Promise<Response> {
 
   try {
     const result = await submitOnboarding(payload.data);
-    return ok(result.body, result.status);
+    const response = ok(result.body, result.status);
+
+    if (result.status === 200 && 'recommendationSnapshot' in result.body) {
+      response.headers.set(
+        'Set-Cookie',
+        `vca_recommendation_cache=${encodeURIComponent(JSON.stringify(result.body.recommendationSnapshot))}; Path=/; Max-Age=900; SameSite=Lax`,
+      );
+    }
+
+    return response;
   } catch (error) {
     const details = error instanceof Error ? { name: error.name, message: error.message, stack: error.stack } : { error };
     console.error('[api/onboarding/submit] Failed to process onboarding submission', details);
