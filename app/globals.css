@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neon: var(--neon);
+  --color-neon-muted: var(--neon-muted);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  /* VIVERSE Dark Theme - Immersive Creator Platform */
+  --background: oklch(0.11 0.02 260);
+  --foreground: oklch(0.98 0.01 260);
+  
+  /* Card surfaces - dark slate with subtle blue tint */
+  --card: oklch(0.15 0.025 260);
+  --card-foreground: oklch(0.98 0.01 260);
+  
+  /* Popover */
+  --popover: oklch(0.13 0.025 260);
+  --popover-foreground: oklch(0.98 0.01 260);
+  
+  /* Primary - Electric Cyan accent */
+  --primary: oklch(0.75 0.18 195);
+  --primary-foreground: oklch(0.13 0.03 260);
+  
+  /* Secondary - Dark slate surface */
+  --secondary: oklch(0.20 0.03 260);
+  --secondary-foreground: oklch(0.90 0.02 260);
+  
+  /* Muted - Subdued dark surface */
+  --muted: oklch(0.18 0.02 260);
+  --muted-foreground: oklch(0.65 0.02 260);
+  
+  /* Accent - Blue glow */
+  --accent: oklch(0.65 0.15 250);
+  --accent-foreground: oklch(0.98 0.01 260);
+  
+  /* Destructive */
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.98 0.01 260);
+  
+  /* Borders and inputs */
+  --border: oklch(0.25 0.03 260);
+  --input: oklch(0.20 0.025 260);
+  --ring: oklch(0.75 0.18 195);
+  
+  /* Neon accent for glows */
+  --neon: oklch(0.80 0.20 195);
+  --neon-muted: oklch(0.50 0.12 195);
+  
+  --radius: 1rem;
+}
+
+* {
+  border-color: var(--border);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Subtle noise texture overlay */
+.noise-bg {
+  position: relative;
+}
+
+.noise-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Glow effects */
+.glow-cyan {
+  box-shadow: 0 0 20px oklch(0.75 0.18 195 / 0.3),
+              0 0 40px oklch(0.75 0.18 195 / 0.1);
+}
+
+.glow-cyan-subtle {
+  box-shadow: 0 0 15px oklch(0.75 0.18 195 / 0.15),
+              0 0 30px oklch(0.75 0.18 195 / 0.05);
+}
+
+.glow-border {
+  border: 1px solid oklch(0.75 0.18 195 / 0.4);
+  box-shadow: inset 0 0 20px oklch(0.75 0.18 195 / 0.05);
+}
+
+/* Glass effect */
+.glass {
+  background: oklch(0.15 0.025 260 / 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Gradient backgrounds */
+.gradient-radial {
+  background: radial-gradient(
+    ellipse 80% 50% at 50% -20%,
+    oklch(0.30 0.10 195 / 0.3),
+    transparent
+  );
+}
+
+.gradient-mesh {
+  background: 
+    radial-gradient(at 20% 80%, oklch(0.25 0.08 250 / 0.4) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, oklch(0.20 0.10 195 / 0.3) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, oklch(0.15 0.05 260 / 0.5) 0px, transparent 70%);
+}
+
+/* Text glow for neon effect */
+.text-glow {
+  text-shadow: 0 0 10px oklch(0.75 0.18 195 / 0.5),
+               0 0 20px oklch(0.75 0.18 195 / 0.3);
+}
+
+/* Animated gradient border */
+@keyframes border-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* Selection styling */
+::selection {
+  background: oklch(0.75 0.18 195 / 0.3);
+  color: oklch(0.98 0.01 260);
+}
