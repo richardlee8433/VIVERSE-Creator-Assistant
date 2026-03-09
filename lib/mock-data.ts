@@ -120,7 +120,7 @@ export const mockRecommendation = {
   guides: [
     {
       id: "prepare-3d-experience",
-      title: "Prepare Your 3D Experience",
+      title: "No-code world creation",
       reason: "Essential first step for your chosen path",
       url: "/guides/setup_toolkit",
       sourceUrl: "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
@@ -128,14 +128,14 @@ export const mockRecommendation = {
     },
     {
       id: "upload-viverse-studio",
-      title: "Upload Using VIVERSE Studio",
+      title: "3D creator pipeline",
       reason: "Hands-on tutorial matched to your experience level",
       url: "/guides/setup_toolkit",
       sourceUrl: "https://docs.viverse.com/how-to-publish",
     },
     {
       id: "configure-world-settings",
-      title: "Configure World Settings",
+      title: "Interactive builder",
       reason: "Get your work live quickly",
       url: "/guides/publish_toolkit",
       sourceUrl: "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
@@ -143,7 +143,7 @@ export const mockRecommendation = {
     },
     {
       id: "publish-experience",
-      title: "Publish Your Experience",
+      title: "Standalone publishing",
       reason: "Ensure smooth performance from the start",
       url: "/guides/intro_toolkit",
       sourceUrl: "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
