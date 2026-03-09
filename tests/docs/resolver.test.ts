@@ -40,10 +40,10 @@ describe('resolveRecommendedDocs', () => {
     ]);
 
     expect(resolveRecommendedDocs('playcanvas_toolkit_path').map((g) => g.title)).toEqual([
-      'No-code world creation',
-      '3D creator pipeline',
-      'Interactive builder',
-      'Standalone publishing',
+      'Prepare Your 3D Experience',
+      'Upload Using VIVERSE Studio',
+      'Configure World Settings',
+      'Publish Your Experience',
     ]);
 
     expect(resolveRecommendedDocs('interactive_build_path').map((g) => g.title)).toEqual([
