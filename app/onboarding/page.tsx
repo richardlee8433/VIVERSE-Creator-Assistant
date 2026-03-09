@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { OptionButton } from "@/components/option-button";
 import { onboardingQuestions } from "@/lib/mock-data";
+import { mapUIAnswersToAPI, type OnboardingUIAnswers } from "@/lib/utils/mapping";
 import { ArrowLeft, ArrowRight, Clock, Loader2 } from "lucide-react";
 
 export default function OnboardingPage() {
@@ -15,6 +16,7 @@ export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const totalSteps = onboardingQuestions.length;
   const progress = ((currentStep + 1) / totalSteps) * 100;
@@ -23,6 +25,7 @@ export default function OnboardingPage() {
   const isLastStep = currentStep === totalSteps - 1;
 
   const handleOptionSelect = (optionId: string) => {
+    setError(null);
     setAnswers((prev) => ({
       ...prev,
       [currentQuestion.id]: optionId,
@@ -42,12 +45,44 @@ export default function OnboardingPage() {
   };
 
   const handleSubmit = async () => {
-    setIsSubmitting(true);
-    // Mock API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    // Generate a mock session ID
-    const sessionId = "demo-session-" + Date.now();
-    router.push(`/result/${sessionId}`);
+    try {
+      setError(null);
+      setIsSubmitting(true);
+
+      const mappedAnswers = mapUIAnswersToAPI({
+        goal: answers[1] as OnboardingUIAnswers["goal"],
+        experience: answers[2] as OnboardingUIAnswers["experience"],
+        workflow: answers[3] as OnboardingUIAnswers["workflow"],
+        assets: answers[4] as OnboardingUIAnswers["assets"],
+        first_project_goal: answers[5] as OnboardingUIAnswers["first_project_goal"],
+        biggest_concern: answers[6] as OnboardingUIAnswers["biggest_concern"],
+      });
+
+      const response = await fetch("/api/onboarding/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          answers: mappedAnswers,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok || !data?.sessionId) {
+        throw new Error(data?.error ?? "Failed to submit onboarding answers");
+      }
+
+      router.push(`/result/${data.sessionId}`);
+    } catch (submitError) {
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Something went wrong. Please try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -144,6 +179,10 @@ export default function OnboardingPage() {
           </div>
 
           {/* Step indicators */}
+          {error && (
+            <p className="text-sm text-destructive text-center">{error}</p>
+          )}
+
           <div className="flex items-center justify-center gap-2">
             {onboardingQuestions.map((_, index) => (
               <button
