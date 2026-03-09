@@ -29,7 +29,13 @@ export class FileSessionStore implements SessionStore {
   private async readAll(): Promise<SessionIndex> {
     await ensureFile(this.filePath);
     const raw = await readFile(this.filePath, 'utf8');
-    return JSON.parse(raw) as SessionIndex;
+
+    try {
+      return JSON.parse(raw) as SessionIndex;
+    } catch {
+      await this.writeAll({});
+      return {};
+    }
   }
 
   private async writeAll(data: SessionIndex): Promise<void> {

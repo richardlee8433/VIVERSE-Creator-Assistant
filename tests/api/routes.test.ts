@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { rm } from 'node:fs/promises';
+import { rm, writeFile } from 'node:fs/promises';
 import { submitOnboarding, getRecommendation, askOnboardingQuestion } from '@/lib/api';
 
 const storePath = './data/test-sessions.json';
@@ -55,6 +55,25 @@ describe('api flows', () => {
 
     expect(ask.status).toBe(200);
     expect(String(ask.body.answer).toLowerCase()).toContain('only supports onboarding');
+  });
+
+
+  it('onboarding submit recovers from a corrupted session store file', async () => {
+    await writeFile(storePath, '{"', 'utf8');
+
+    const result = await submitOnboarding({
+      answers: {
+        goal: 'interactive_experience',
+        experience: 'playcanvas',
+        workflow: 'writing_code',
+        assets: '3d_models',
+        first_project_goal: 'interactive_world',
+        biggest_concern: 'tools_setup',
+      },
+    });
+
+    expect(result.status).toBe(200);
+    expect(result.body.sessionId).toBeTruthy();
   });
 
 
