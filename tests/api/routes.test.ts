@@ -56,4 +56,25 @@ describe('api flows', () => {
     expect(ask.status).toBe(200);
     expect(String(ask.body.answer).toLowerCase()).toContain('only supports onboarding');
   });
+
+
+  it('recommendation uses user-facing path labels', async () => {
+    const submit = await submitOnboarding({
+      answers: {
+        goal: '3d_world',
+        experience: '3d_tools',
+        workflow: 'visual_editor',
+        assets: '3d_models',
+        first_project_goal: 'interactive_world',
+        biggest_concern: 'performance',
+      },
+    });
+
+    const recommendation = await getRecommendation(submit.body.sessionId);
+
+    expect(recommendation.status).toBe(200);
+    expect(recommendation.body.recommendedPath.id).toBe('playcanvas_toolkit_path');
+    expect(recommendation.body.recommendedPath.label).toBe('3D Creator Pipeline');
+  });
+
 });
