@@ -123,7 +123,7 @@ export const mockRecommendation = {
       title: "Toolkit Setup Guide",
       reason: "Essential first step for your chosen path",
       url: "/guides/setup_toolkit",
-      sourceUrl: "https://docs.viverse.com/how-to-publish",
+      sourceUrl: "https://docs.viverse.com/publishing-from-templates/creating-from-templates",
     },
     {
       id: "first-scene",
@@ -137,14 +137,14 @@ export const mockRecommendation = {
       title: "Publishing to VIVERSE",
       reason: "Get your work live quickly",
       url: "/guides/publish_toolkit",
-      sourceUrl: "https://docs.viverse.com/how-to-publish",
+      sourceUrl: "https://docs.viverse.com/playcanvas-toolkit/toolkit-setup",
     },
     {
       id: "optimization",
       title: "Optimization Basics",
       reason: "Ensure smooth performance from the start",
       url: "/guides/intro_toolkit",
-      sourceUrl: "https://docs.viverse.com/how-to-publish",
+      sourceUrl: "https://docs.viverse.com/standalone-app-publishing/intro-to-standalone-app-publishing",
     },
   ],
   pitfalls: [
