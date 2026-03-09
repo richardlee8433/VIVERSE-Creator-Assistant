@@ -1,11 +1,16 @@
-import { getRecommendation } from '@/lib/api';
-import { internalError, ok } from '@/lib/utils/api';
+import { getRecommendation } from "@/lib/api";
+import { internalError, ok } from "@/lib/utils/api";
+import type { NextRequest } from "next/server";
 
-export async function GET(_: Request, { params }: { params: { sessionId: string } }): Promise<Response> {
+export async function GET(
+  _: NextRequest,
+  context: { params: Promise<{ sessionId: string }> }
+): Promise<Response> {
   try {
-    const result = await getRecommendation(params.sessionId);
+    const { sessionId } = await context.params;
+    const result = await getRecommendation(sessionId);
     return ok(result.body, result.status);
   } catch {
-    return internalError('Failed to fetch recommendation');
+    return internalError("Failed to fetch recommendation");
   }
 }
