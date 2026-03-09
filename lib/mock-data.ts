@@ -1,28 +1,28 @@
 export const creatorPaths = [
   {
     id: "no-code",
-    title: "No-Code Creation Path",
+    title: "No-code World Creation",
     description: "Build immersive experiences without writing code",
     icon: "Sparkles",
     gradient: "from-cyan-500/20 to-blue-500/20",
   },
   {
     id: "playcanvas",
-    title: "PlayCanvas Toolkit Path",
+    title: "3D Creator Pipeline",
     description: "Use the visual editor and toolkit for 3D web content",
     icon: "Box",
     gradient: "from-blue-500/20 to-purple-500/20",
   },
   {
     id: "interactive",
-    title: "Interactive Build Path",
+    title: "Interactive Builder",
     description: "Create interactive 3D experiences with scripting",
     icon: "Zap",
     gradient: "from-purple-500/20 to-pink-500/20",
   },
   {
     id: "standalone",
-    title: "Standalone Publish Path",
+    title: "Standalone Publishing",
     description: "Publish directly from Unity, Unreal, or other engines",
     icon: "Rocket",
     gradient: "from-pink-500/20 to-orange-500/20",
@@ -95,11 +95,11 @@ export const onboardingQuestions = [
 export const mockRecommendation = {
   path: {
     id: "playcanvas",
-    title: "PlayCanvas Toolkit Path",
+    title: "3D Creator Pipeline",
     confidence: 92,
   },
   reason:
-    "Based on your experience with 3D assets and preference for visual tools, the PlayCanvas Toolkit gives you the perfect balance of power and ease of use. You can build interactive content without diving into low-level code.",
+    "Based on your experience with 3D assets and preference for visual tools, the 3D Creator Pipeline gives you the perfect balance of power and ease of use. You can build interactive content without diving into low-level code.",
   firstSteps: [
     {
       step: 1,

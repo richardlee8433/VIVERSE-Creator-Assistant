@@ -93,7 +93,7 @@ export async function askOnboardingQuestion(payload: unknown) {
   return {
     status: 200,
     body: {
-      answer: `Given your ${session.creatorProfile} profile, stay on ${session.recommendedPath} and complete setup before deciding on alternative tooling.`,
+      answer: `Given your ${profileLabels[session.creatorProfile]} profile, stay on ${pathLabels[session.recommendedPath]} and complete setup before deciding on alternative tooling.`,
       recommendedGuides: session.recommendedGuides.slice(0, 3).map((g) => ({ id: g.id, title: g.title, url: g.url, sourceUrl: g.sourceUrl })),
     },
   };

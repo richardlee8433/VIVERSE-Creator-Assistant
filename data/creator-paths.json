@@ -6,10 +6,10 @@
     {"id": "web_engine_developer", "label": "Web/Engine Developer"}
   ],
   "paths": [
-    {"id": "no_code_path", "label": "No-Code Path"},
-    {"id": "playcanvas_toolkit_path", "label": "PlayCanvas Toolkit Path"},
-    {"id": "interactive_build_path", "label": "Interactive Build Path"},
-    {"id": "standalone_publish_path", "label": "Standalone Publish Path"}
+    {"id": "no_code_path", "label": "No-code World Creation"},
+    {"id": "playcanvas_toolkit_path", "label": "3D Creator Pipeline"},
+    {"id": "interactive_build_path", "label": "Interactive Builder"},
+    {"id": "standalone_publish_path", "label": "Standalone Publishing"}
   ],
   "profileToPath": {
     "beginner_creator": "no_code_path",
