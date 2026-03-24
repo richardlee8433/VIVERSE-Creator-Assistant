@@ -147,8 +147,17 @@ export async function POST(request: Request): Promise<Response> {
 
   try {
     const submitResult = await submitOnboarding({ answers: mappedAnswers });
-    if (submitResult.status !== 200 || !('sessionId' in submitResult.body)) {
+    if (submitResult.status !== 200) {
       console.error('[api/chat] submitOnboarding returned non-success', {
+        status: submitResult.status,
+        body: submitResult.body,
+      });
+      return Response.json({ error: 'Failed to complete onboarding submission' }, { status: 500 });
+    }
+
+    const sessionId = submitResult?.body?.sessionId;
+    if (typeof sessionId !== 'string' || !sessionId.trim()) {
+      console.error('[api/chat] submitOnboarding response missing sessionId', {
         status: submitResult.status,
         body: submitResult.body,
       });
@@ -157,7 +166,7 @@ export async function POST(request: Request): Promise<Response> {
 
     const response = Response.json({
       type: 'final',
-      sessionId: submitResult.body.sessionId,
+      sessionId,
       answers: mappedAnswers,
       metadata: toMetadata(submitResult.body as Record<string, unknown>),
     } satisfies FinalResponse);
