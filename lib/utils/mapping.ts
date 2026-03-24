@@ -18,6 +18,8 @@ export type FreeTextOnboardingAnswers = {
   biggest_concern: string;
 };
 
+export type ConversationalOnboardingAnswers = FreeTextOnboardingAnswers;
+
 const GOAL_MAP: Record<OnboardingUIAnswers['goal'], OnboardingAnswers['goal']> = {
   'virtual-space': '3d_world',
   'interactive-experience': 'interactive_experience',
@@ -70,7 +72,7 @@ function normalizeText(value: string): string {
   return value
     .trim()
     .toLowerCase()
-    .replace(/[\s-]+/g, '_');
+    .replace(/[\s_-]+/g, ' ');
 }
 
 function includesAny(value: string, phrases: string[]): boolean {
@@ -79,39 +81,39 @@ function includesAny(value: string, phrases: string[]): boolean {
 
 function mapGoal(value: string): OnboardingAnswers['goal'] {
   const normalized = normalizeText(value);
-  if (normalized === '3d_world' || includesAny(normalized, ['virtual', '3d_world', 'showcase', 'gallery', 'space'])) return '3d_world';
-  if (normalized === 'interactive_experience' || includesAny(normalized, ['interactive', 'game', 'experience'])) return 'interactive_experience';
-  if (normalized === 'publish_existing_app' || includesAny(normalized, ['existing_app', 'port', 'migration'])) return 'publish_existing_app';
+  if (normalized === '3d world' || includesAny(normalized, ['virtual', '3d world', 'showcase', 'gallery', 'space'])) return '3d_world';
+  if (normalized === 'interactive experience' || includesAny(normalized, ['interactive', 'game', 'experience'])) return 'interactive_experience';
+  if (normalized === 'publish existing app' || includesAny(normalized, ['existing app', 'port', 'migration'])) return 'publish_existing_app';
   return 'exploring';
 }
 
 function mapExperience(value: string): OnboardingAnswers['experience'] {
   const normalized = normalizeText(value);
-  if (normalized === 'none' || includesAny(normalized, ['beginner', 'new', 'none', 'no_experience'])) return 'none';
+  if (normalized === 'none' || includesAny(normalized, ['beginner', 'new', 'none', 'no experience'])) return 'none';
   if (normalized === 'playcanvas' || includesAny(normalized, ['playcanvas'])) return 'playcanvas';
-  if (normalized === 'web_development' || includesAny(normalized, ['developer', 'javascript', 'typescript', 'web'])) return 'web_development';
-  if (normalized === 'unity_unreal' || includesAny(normalized, ['unity', 'unreal'])) return 'unity_unreal';
+  if (normalized === 'web development' || includesAny(normalized, ['developer', 'javascript', 'typescript', 'web'])) return 'web_development';
+  if (normalized === 'unity unreal' || includesAny(normalized, ['unity', 'unreal'])) return 'unity_unreal';
   return '3d_tools';
 }
 
 function mapWorkflow(value: string): OnboardingAnswers['workflow'] {
   const normalized = normalizeText(value);
-  if (normalized === 'writing_code' || includesAny(normalized, ['code', 'script', 'developer'])) return 'writing_code';
-  if (normalized === 'visual_editor' || includesAny(normalized, ['visual', 'editor', 'drag', 'import'])) return 'visual_editor';
+  if (normalized === 'writing code' || includesAny(normalized, ['code', 'script', 'developer'])) return 'writing_code';
+  if (normalized === 'visual editor' || includesAny(normalized, ['visual', 'editor', 'drag', 'import'])) return 'visual_editor';
   return 'no_code_tools';
 }
 
 function mapAssets(value: string): OnboardingAnswers['assets'] {
   const normalized = normalizeText(value);
-  if (normalized === 'full_project' || includesAny(normalized, ['project', 'repo', 'application'])) return 'full_project';
-  if (normalized === '3d_models' || includesAny(normalized, ['model', 'assets', 'fbx', 'gltf', 'obj'])) return '3d_models';
+  if (normalized === 'full project' || includesAny(normalized, ['project', 'repo', 'application'])) return 'full_project';
+  if (normalized === '3d models' || includesAny(normalized, ['model', 'assets', 'fbx', 'gltf', 'obj'])) return '3d_models';
   return 'none';
 }
 
 function mapFirstProjectGoal(value: string): OnboardingAnswers['first_project_goal'] {
   const normalized = normalizeText(value);
-  if (normalized === 'viverse_app' || includesAny(normalized, ['publish', 'launch', 'app', 'production'])) return 'viverse_app';
-  if (normalized === 'interactive_world' || includesAny(normalized, ['prototype', 'interactive', 'world'])) return 'interactive_world';
+  if (normalized === 'viverse app' || includesAny(normalized, ['publish', 'launch', 'app', 'production'])) return 'viverse_app';
+  if (normalized === 'interactive world' || includesAny(normalized, ['prototype', 'interactive', 'world'])) return 'interactive_world';
   return 'shareable_demo';
 }
 
@@ -119,7 +121,75 @@ function mapBiggestConcern(value: string): OnboardingAnswers['biggest_concern'] 
   const normalized = normalizeText(value);
   if (normalized === 'performance' || includesAny(normalized, ['quality', 'performance', 'fps', 'optimization'])) return 'performance';
   if (normalized === 'publishing' || includesAny(normalized, ['publish', 'release', 'distribution'])) return 'publishing';
-  if (normalized === 'tools_setup' || includesAny(normalized, ['setup', 'time', 'tooling'])) return 'tools_setup';
+  if (normalized === 'tools setup' || includesAny(normalized, ['setup', 'time', 'tooling'])) return 'tools_setup';
+  return 'complexity';
+}
+
+function mapConversationalGoalToUI(value: string): OnboardingUIAnswers['goal'] {
+  const normalized = normalizeText(value);
+  if (includesAny(normalized, ['social', 'community', 'hangout', 'event', 'venue'])) return 'social-venue';
+  if (includesAny(normalized, ['interactive', 'game', 'experience'])) return 'interactive-experience';
+  if (includesAny(normalized, ['showcase', 'gallery', 'portfolio', 'display'])) return '3d-showcase';
+  if (includesAny(normalized, ['virtual', 'world', 'space', 'room', 'environment'])) return 'virtual-space';
+
+  // Best-effort fallback: unknown intent is treated as an exploratory "virtual-space"
+  // path because it keeps onboarding flow unblocked while remaining broadly useful.
+  return 'virtual-space';
+}
+
+function mapConversationalExperienceToUI(value: string): OnboardingUIAnswers['experience'] {
+  const normalized = normalizeText(value);
+  if (includesAny(normalized, ['unity', 'unreal', 'blender', 'maya', '3d artist', 'artist'])) return '3d-artist';
+  if (includesAny(normalized, ['developer', 'engineer', 'javascript', 'typescript', 'programming', 'code'])) return 'developer';
+  if (includesAny(normalized, ['some', 'intermediate', 'used before', 'familiar', 'basic 3d'])) return 'some-3d';
+  if (includesAny(normalized, ['new', 'beginner', 'first time', 'no experience'])) return 'beginner';
+
+  // Best-effort fallback: when confidence is low, we choose "beginner" instead of
+  // overestimating user skill and routing them to a too-advanced path.
+  return 'beginner';
+}
+
+function mapConversationalWorkflowToUI(value: string): OnboardingUIAnswers['workflow'] {
+  const normalized = normalizeText(value);
+  if (includesAny(normalized, ['code', 'sdk', 'api', 'script', 'developer'])) return 'code';
+  if (includesAny(normalized, ['import', 'upload', 'bring my', 'from blender', 'from unity'])) return 'import';
+  if (includesAny(normalized, ['template', 'starter', 'quick start', 'boilerplate'])) return 'templates';
+  if (includesAny(normalized, ['visual', 'drag', 'drop', 'editor', 'no code'])) return 'visual';
+
+  // Best-effort fallback: default to "visual" as the lowest-friction workflow.
+  return 'visual';
+}
+
+function mapConversationalAssetsToUI(value: string): OnboardingUIAnswers['assets'] {
+  const normalized = normalizeText(value);
+  if (includesAny(normalized, ['existing project', 'full project', 'repo', 'application', 'app'])) return 'existing-project';
+  if (includesAny(normalized, ['3d', 'model', 'fbx', 'gltf', 'obj', 'asset'])) return '3d-assets';
+  if (includesAny(normalized, ['design', 'figma', 'concept', 'mockup', 'ui'])) return 'design';
+  if (includesAny(normalized, ['nothing', 'none', 'start from scratch', 'no assets'])) return 'nothing';
+
+  // Best-effort fallback: unknown assets are treated as "nothing" to avoid assumptions.
+  return 'nothing';
+}
+
+function mapConversationalFirstProjectGoalToUI(value: string): OnboardingUIAnswers['first_project_goal'] {
+  const normalized = normalizeText(value);
+  if (includesAny(normalized, ['publish', 'launch', 'ship', 'production', 'go live'])) return 'publish';
+  if (includesAny(normalized, ['prototype', 'poc', 'mvp', 'test idea'])) return 'prototype';
+  if (includesAny(normalized, ['evaluate', 'assess', 'compare', 'explore options'])) return 'evaluate';
+  if (includesAny(normalized, ['learn', 'tutorial', 'practice', 'study'])) return 'learn';
+
+  // Best-effort fallback: prefer "learn" when goal is ambiguous.
+  return 'learn';
+}
+
+function mapConversationalBiggestConcernToUI(value: string): OnboardingUIAnswers['biggest_concern'] {
+  const normalized = normalizeText(value);
+  if (includesAny(normalized, ['quality', 'performance', 'lag', 'fps', 'optimization'])) return 'quality';
+  if (includesAny(normalized, ['scale', 'scalability', 'users', 'growth', 'deployment'])) return 'scalability';
+  if (includesAny(normalized, ['time', 'deadline', 'speed', 'quickly', 'fast'])) return 'time';
+  if (includesAny(normalized, ['complex', 'complexity', 'difficulty', 'hard', 'confusing'])) return 'complexity';
+
+  // Best-effort fallback: "complexity" is the safest generic concern and maps cleanly.
   return 'complexity';
 }
 
@@ -143,4 +213,23 @@ export function mapFreeTextAnswersToAPI(answers: FreeTextOnboardingAnswers): Onb
     first_project_goal: mapFirstProjectGoal(answers.first_project_goal),
     biggest_concern: mapBiggestConcern(answers.biggest_concern),
   };
+}
+
+export function mapConversationalAnswersToUIAnswers(
+  answers: ConversationalOnboardingAnswers
+): OnboardingUIAnswers {
+  return {
+    goal: mapConversationalGoalToUI(answers.goal),
+    experience: mapConversationalExperienceToUI(answers.experience),
+    workflow: mapConversationalWorkflowToUI(answers.workflow),
+    assets: mapConversationalAssetsToUI(answers.assets),
+    first_project_goal: mapConversationalFirstProjectGoalToUI(answers.first_project_goal),
+    biggest_concern: mapConversationalBiggestConcernToUI(answers.biggest_concern),
+  };
+}
+
+export function mapConversationalAnswersToAPI(
+  answers: ConversationalOnboardingAnswers
+): OnboardingAnswers {
+  return mapUIAnswersToAPI(mapConversationalAnswersToUIAnswers(answers));
 }
