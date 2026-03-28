@@ -89,11 +89,13 @@ describe('api flows', () => {
       },
     });
 
-    const recommendation = await getRecommendation(submit.body.sessionId);
+    expect(submit.body.sessionId).toBeTruthy();
+    const sessionId = submit.body.sessionId as string;
+    const recommendation = await getRecommendation(sessionId);
 
     expect(recommendation.status).toBe(200);
-    expect(recommendation.body.recommendedPath.id).toBe('playcanvas_toolkit_path');
-    expect(recommendation.body.recommendedPath.label).toBe('3D Creator Pipeline');
+    expect(recommendation.body.recommendedPath?.id).toBe('playcanvas_toolkit_path');
+    expect(recommendation.body.recommendedPath?.label).toBe('3D Creator Pipeline');
   });
 
 });

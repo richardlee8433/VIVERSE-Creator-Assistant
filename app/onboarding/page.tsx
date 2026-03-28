@@ -3,8 +3,16 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Clock, Send, Loader2, Sparkles, ArrowRight } from "lucide-react";
+import { ArrowLeft, Clock, Send, Loader2, Mic, MicOff, Settings2 } from "lucide-react";
 import { mapUIAnswersToAPI, type OnboardingUIAnswers } from "@/lib/utils/mapping";
+import { speakText, stopSpeaking } from "@/lib/tts/client";
+import {
+  startRecording,
+  stopRecordingAndTranscribe,
+  cancelRecording,
+  isRecording,
+} from "@/lib/stt/client";
+import { VoiceSettingsPanel } from "@/components/voice-settings-panel";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -191,6 +199,13 @@ export default function OnboardingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError]   = useState<string | null>(null);
   const [isDone, setIsDone]             = useState(false);
+  const [apiKey, setApiKey]             = useState<string>("");
+  const [ttsEnabled, setTtsEnabled]     = useState(false);
+  const [sttEnabled, setSttEnabled]     = useState(false);
+  const [isListening, setIsListening]   = useState(false);
+  const [isSpeaking, setIsSpeaking]     = useState(false);
+  const [showVoiceSettings, setShowVoiceSettings] = useState(false);
+  const [sttError, setSttError]         = useState<string | null>(null);
 
   const chatEndRef  = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -218,6 +233,21 @@ export default function OnboardingPage() {
     setMessages((prev) => prev.filter((m) => m.role !== "typing"));
   }
 
+  const maybeSpeakAssistantMessage = useCallback(
+    async (content: string) => {
+      if (!ttsEnabled || !apiKey.trim()) return;
+      try {
+        setIsSpeaking(true);
+        await speakText(content, apiKey);
+      } catch {
+        // Non-blocking for chat UX.
+      } finally {
+        setIsSpeaking(false);
+      }
+    },
+    [ttsEnabled, apiKey]
+  );
+
   // ── init: show first question ───────────────────────────────────────────────
 
   useEffect(() => {
@@ -227,13 +257,49 @@ export default function OnboardingPage() {
       await sleep(650);
       if (cancelled) return;
       removeTyping();
-      addMessage({ role: "assistant", content: questions[0].message });
+      const firstMessage = questions[0].message;
+      addMessage({ role: "assistant", content: firstMessage });
+      void maybeSpeakAssistantMessage(firstMessage);
       setChips(questions[0].options);
       setLocked(false);
     }
     start();
     return () => { cancelled = true; };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [maybeSpeakAssistantMessage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    const savedKey = sessionStorage.getItem("viverse_openai_key") ?? "";
+    setApiKey(savedKey);
+  }, []);
+
+  useEffect(() => {
+    if (apiKey.trim()) {
+      sessionStorage.setItem("viverse_openai_key", apiKey.trim());
+      return;
+    }
+    sessionStorage.removeItem("viverse_openai_key");
+    setTtsEnabled(false);
+    setSttEnabled(false);
+  }, [apiKey]);
+
+  useEffect(() => {
+    if (!locked) return;
+    stopSpeaking();
+    setIsSpeaking(false);
+  }, [locked]);
+
+  useEffect(() => {
+    if (!sttError) return;
+    const timer = window.setTimeout(() => setSttError(null), 4000);
+    return () => window.clearTimeout(timer);
+  }, [sttError]);
+
+  useEffect(() => {
+    return () => {
+      stopSpeaking();
+      cancelRecording();
+    };
+  }, []);
 
   // ── core: handle any answer (chip OR typed) ─────────────────────────────────
 
@@ -266,7 +332,9 @@ export default function OnboardingPage() {
         addMessage({ role: "typing" });
         await sleep(500 + Math.random() * 250);
         removeTyping();
-        addMessage({ role: "assistant", content: questions[nextStep].message });
+        const nextMessage = questions[nextStep].message;
+        addMessage({ role: "assistant", content: nextMessage });
+        void maybeSpeakAssistantMessage(nextMessage);
         setChips(questions[nextStep].options);
         setLocked(false);
       } else {
@@ -280,13 +348,14 @@ export default function OnboardingPage() {
           content:
             "Great, I have everything I need! Let me find your recommended path…",
         });
+        void maybeSpeakAssistantMessage("Great, I have everything I need! Let me find your recommended path…");
         setIsDone(true);
 
         // fire the real API call
         await handleFinalSubmit(newAnswers);
       }
     },
-    [locked, currentStep, answers] // eslint-disable-line react-hooks/exhaustive-deps
+    [locked, currentStep, answers, maybeSpeakAssistantMessage] // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   // ── final API submit ────────────────────────────────────────────────────────
@@ -331,8 +400,57 @@ export default function OnboardingPage() {
         role: "assistant",
         content: `Hmm, something went wrong: ${msg}\n\nPlease try again.`,
       });
+      void maybeSpeakAssistantMessage(`Hmm, something went wrong: ${msg}. Please try again.`);
       setIsDone(false);
       setLocked(false);
+    }
+  }
+
+  async function handleMicClick() {
+    if (!sttEnabled || !apiKey.trim()) return;
+
+    if (!isRecording()) {
+      try {
+        setSttError(null);
+        await startRecording();
+        setIsListening(true);
+        window.setTimeout(() => {
+          if (!isRecording()) return;
+          void stopRecordingAndTranscribe(apiKey)
+            .then((transcript) => {
+              setInputValue(transcript);
+              autoResize();
+            })
+            .catch(() => {
+              setSttError("Voice input failed. Please type your answer instead.");
+            })
+            .finally(() => {
+              setIsListening(false);
+            });
+        }, 60_000);
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error && error.message === "STT_MIC_DENIED"
+            ? "Microphone access denied — please allow microphone in browser settings."
+            : "Voice input failed. Please type your answer instead.";
+        setSttError(errorMessage);
+        setIsListening(false);
+      }
+      return;
+    }
+
+    try {
+      const transcript = await stopRecordingAndTranscribe(apiKey);
+      setInputValue(transcript);
+      autoResize();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error && error.message === "STT_MIC_DENIED"
+          ? "Microphone access denied — please allow microphone in browser settings."
+          : "Voice input failed. Please type your answer instead.";
+      setSttError(errorMessage);
+    } finally {
+      setIsListening(false);
     }
   }
 
@@ -448,13 +566,49 @@ export default function OnboardingPage() {
 
       {/* ── input row ── */}
       <div className="relative z-10 flex-shrink-0 mx-auto max-w-2xl w-full px-5 pb-4">
+        {showVoiceSettings && (
+          <VoiceSettingsPanel
+            apiKey={apiKey}
+            onApiKeyChange={setApiKey}
+            ttsEnabled={ttsEnabled}
+            onTtsToggle={setTtsEnabled}
+            sttEnabled={sttEnabled}
+            onSttToggle={setSttEnabled}
+            onClose={() => setShowVoiceSettings(false)}
+          />
+        )}
+
         {/* hint */}
         <p className="text-[0.6875rem] text-muted-foreground mb-1.5 transition-opacity duration-200"
            style={{ opacity: locked && !isDone ? 0 : 1 }}>
-          {isDone ? "Analyzing your answers…" : "or type your own answer (Shift+Enter for new line)"}
+          {isDone
+            ? "Analyzing your answers…"
+            : isSpeaking
+            ? "Assistant is speaking…"
+            : "or type your own answer (Shift+Enter for new line)"}
         </p>
 
         <div className="flex gap-2 items-end">
+          <button
+            type="button"
+            disabled={!sttEnabled || !apiKey.trim()}
+            onClick={handleMicClick}
+            aria-label={isListening ? "Stop microphone recording" : "Start microphone recording"}
+            className={[
+              "relative flex-shrink-0 w-11 h-11 rounded-2xl border flex items-center justify-center transition-all duration-200",
+              !sttEnabled || !apiKey.trim()
+                ? "opacity-40 cursor-not-allowed bg-secondary border-border text-muted-foreground"
+                : isListening
+                ? "border-destructive bg-secondary text-destructive"
+                : "bg-secondary border-border text-foreground",
+            ].join(" ")}
+          >
+            {isListening && (
+              <span className="absolute inset-0 rounded-2xl border border-destructive animate-ping" />
+            )}
+            {isListening ? <MicOff className="w-4 h-4 relative z-10" /> : <Mic className="w-4 h-4" />}
+          </button>
+
           <textarea
             ref={textareaRef}
             value={inputValue}
@@ -475,6 +629,7 @@ export default function OnboardingPage() {
             onKeyDown={handleKeyDown}
           />
           <button
+            type="button"
             disabled={locked || !inputValue.trim() || isSubmitting}
             onClick={() => {
               if (inputValue.trim() && !locked) submitAnswer(inputValue.trim(), null);
@@ -488,7 +643,21 @@ export default function OnboardingPage() {
               <Send className="w-4 h-4" />
             )}
           </button>
+
+          <button
+            type="button"
+            onClick={() => setShowVoiceSettings((prev) => !prev)}
+            aria-label="Toggle voice settings"
+            className="relative flex-shrink-0 w-11 h-11 rounded-2xl border border-border bg-secondary text-foreground flex items-center justify-center transition-colors hover:border-primary/50"
+          >
+            {(ttsEnabled || sttEnabled) && (
+              <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary" />
+            )}
+            <Settings2 className="w-4 h-4" />
+          </button>
         </div>
+
+        {sttError && <p className="mt-2 text-xs text-destructive">{sttError}</p>}
 
         {submitError && (
           <p className="mt-2 text-xs text-destructive text-center">{submitError}</p>
