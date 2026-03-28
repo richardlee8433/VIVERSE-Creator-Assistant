@@ -409,6 +409,15 @@ export default function OnboardingPage() {
   async function handleMicClick() {
     if (!sttEnabled || !apiKey.trim()) return;
 
+    const handleTranscriptResult = (transcript: string) => {
+      const trimmed = transcript.trim();
+      setInputValue(transcript);
+      autoResize();
+      if (trimmed && !locked) {
+        submitAnswer(trimmed, null);
+      }
+    };
+
     if (!isRecording()) {
       try {
         setSttError(null);
@@ -417,10 +426,7 @@ export default function OnboardingPage() {
         window.setTimeout(() => {
           if (!isRecording()) return;
           void stopRecordingAndTranscribe(apiKey)
-            .then((transcript) => {
-              setInputValue(transcript);
-              autoResize();
-            })
+            .then(handleTranscriptResult)
             .catch(() => {
               setSttError("Voice input failed. Please type your answer instead.");
             })
@@ -441,8 +447,7 @@ export default function OnboardingPage() {
 
     try {
       const transcript = await stopRecordingAndTranscribe(apiKey);
-      setInputValue(transcript);
-      autoResize();
+      handleTranscriptResult(transcript);
     } catch (error) {
       const errorMessage =
         error instanceof Error && error.message === "STT_MIC_DENIED"
